@@ -120,7 +120,7 @@ public static class Seed
         }
     }
 
-    private static float Hash(int index, int seed)
+    public static float Hash(int index, int seed)
     {
         uint hashed = (uint)(index * 73856093) ^ (uint)(seed * 19349663);
         hashed ^= hashed >> 13;

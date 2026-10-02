@@ -5,13 +5,15 @@ public static class DandelionGeometry
     public static void Build(MeshBuffer mesh, DandelionSettings settings, DandelionPalette palette)
     {
         mesh.SetInk(palette.ink);
-        Seed.Build(mesh, settings, palette, new SeedPlan
+        if (settings.grey >= 1.0f)
         {
-            root = Vector3.zero,
-            heading = Vector3.up,
-            scale = 1.0f,
-            roll = 0.0f,
-            open = 1.0f
-        });
+            Clock.Build(mesh, settings, palette, settings.phase);
+        }
+        else
+        {
+            Bloom.Build(mesh, settings, palette, settings.open);
+        }
+
+        Involucre.Build(mesh, settings, palette, settings.open);
     }
 }
