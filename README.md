@@ -52,28 +52,7 @@ Flat fills, one light, a hard shadow band, and ink along the silhouette. The sha
 
 ## Running it
 
-Headless, no editor window.
-
-```
-Unity -batchmode -projectPath . -executeMethod DandelionCapture.Run \
-      -outputDir out -size 900 -frames 660 -fps 60 \
-      -life 0 -lifeTo 1 -phase 0 -phaseTo 9 \
-      -yaw 8 -yawTo 30 -pitch 15 -radius 0.98 -focus 0.33 -quit
-```
-
-660 frames of the full lifecycle take about 25 seconds.
-
-```
--life -lifeTo     the whole cycle, 0 to 1
--open             head openness on its own
--grey             0 for the flower, 1 for the clock
--blow             how far the seeds have gone
--wilt             how dry the involucre is
--florets -seeds   counts
--stalk -arch      stalk height and curve
--wind             gust strength
--yaw -pitch -radius -focus    camera
-```
+Open `Assets/Scenes/Dandelion.unity` in Unity 6. The builder runs in the editor, so the plant is already there without pressing play. Numbers live in `DandelionSettings.cs`, the stages of the life in `Lifecycle.cs`.
 
 Built with Unity 6000.3.5f2 and URP.
 
