@@ -29,6 +29,7 @@ public sealed class DandelionSettings
     public float receptacleRadius = 0.021f;
     public float seedJitter = 0.14f;
     public float clockDome = 1.0f;
+    public float bareDome = 0.50f;
     public float bloomDome = 0.42f;
 
     public float blow = 0.0f;
@@ -57,6 +58,11 @@ public sealed class DandelionSettings
     public float bractClosed = 5.0f;
     public float bractOuterBend = 128.0f;
     public float bractCurl = 26.0f;
+    public float bractDroop = 158.0f;
+    public float bractScatter = 46.0f;
+    public float wilt = 0.0f;
+    public float pitRadius = 0.0011f;
+    public float pitDepth = 0.0011f;
 
     public float stalkHeight = 0.42f;
     public float stalkRadius = 0.0046f;

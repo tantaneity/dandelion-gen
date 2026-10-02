@@ -17,6 +17,7 @@ public static class Lifecycle
     public static void Apply(DandelionSettings settings, float life)
     {
         settings.grey = life >= GreyAt ? 1.0f : 0.0f;
+        settings.wilt = Ease(GreyAt, 1.0f, life);
 
         if (life < GreyAt)
         {

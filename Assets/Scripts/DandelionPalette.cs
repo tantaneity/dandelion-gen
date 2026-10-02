@@ -11,6 +11,9 @@ public sealed class DandelionPalette
     public Color bractInner;
     public Color stalk;
     public Color receptacle;
+    public Color receptacleBare;
+    public Color pit;
+    public Color bractDry;
     public Color ink;
     public Color background;
 
@@ -25,6 +28,9 @@ public sealed class DandelionPalette
         bractInner = Hex(0x879a4b),
         stalk = Hex(0x7d9448),
         receptacle = Hex(0x6f8046),
+        receptacleBare = Hex(0xdfd9c4),
+        pit = Hex(0x857b64),
+        bractDry = Hex(0x5d5736),
         ink = Hex(0x2a2722),
         background = Hex(0xf6f3ec)
     };

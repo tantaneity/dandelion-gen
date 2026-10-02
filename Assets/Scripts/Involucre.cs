@@ -4,6 +4,8 @@ public static class Involucre
 {
     private const float FullTurn = 360.0f;
     private const float InnerLift = 0.92f;
+    private const float Shrivel = 0.86f;
+    private const float Pinch = 0.52f;
 
     public static void Build(MeshBuffer mesh, DandelionSettings settings, DandelionPalette palette, Pose pose, float open)
     {
@@ -14,7 +16,10 @@ public static class Involucre
             float bend = isInner
                 ? Mathf.Lerp(settings.bractClosed, settings.bractInnerBend, open)
                 : Mathf.Lerp(settings.bractClosed, settings.bractOuterBend, open);
-            float length = settings.bractLength * (isInner ? InnerLift : 1.0f);
+            float wilt = settings.wilt;
+            float length = settings.bractLength * (isInner ? InnerLift : 1.0f)
+                           * Mathf.Lerp(1.0f, Shrivel, wilt);
+            bend = Mathf.Lerp(bend, settings.bractDroop, wilt);
 
             for (int index = 0; index < count; index++)
             {
@@ -22,6 +27,9 @@ public static class Involucre
                 Vector3 outward = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.right;
                 Vector3 heading = Quaternion.AngleAxis(bend, Vector3.Cross(Vector3.up, outward)) * Vector3.up;
                 float draw = Seed.Hash(index + ring * 97, settings.seed + 31);
+                float sag = (draw - 0.5f) * settings.bractScatter * wilt;
+                heading = Quaternion.AngleAxis(sag, Vector3.Cross(Vector3.up, outward)) * heading;
+                Color fresh = isInner ? palette.bractInner : palette.bract;
 
                 Floret.Build(mesh, settings, new FloretPlan
                 {
@@ -30,9 +38,9 @@ public static class Involucre
                     heading = pose.Aim(heading.normalized),
                     flank = pose.Aim(Vector3.Cross(heading, outward).normalized),
                     length = length * (1.0f + (draw - 0.5f) * 0.18f),
-                    width = settings.bractWidth,
+                    width = settings.bractWidth * Mathf.Lerp(1.0f, Pinch, wilt),
                     curl = isInner ? 0.0f : settings.bractCurl * open,
-                    fill = isInner ? palette.bractInner : palette.bract
+                    fill = Color.Lerp(fresh, palette.bractDry, wilt)
                 });
             }
         }

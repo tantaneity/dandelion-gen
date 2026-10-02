@@ -15,7 +15,7 @@ public static class Bloom
 
     public static void Build(MeshBuffer mesh, DandelionSettings settings, DandelionPalette palette, Pose pose, float open)
     {
-        Receptacle.Build(mesh, settings, palette, pose, settings.bloomDome);
+        Receptacle.Build(mesh, settings, palette, pose, settings.bloomDome, 0.0f);
 
         for (int index = 0; index < settings.floretCount; index++)
         {
