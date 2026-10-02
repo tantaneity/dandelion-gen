@@ -15,28 +15,28 @@ public static class Dispersal
     private const float Rise = 0.22f;
     private const float Tumble = 48.0f;
 
-    private static float Leaving(DandelionSettings settings, int index, float seconds)
+    private static float Leaving(DandelionSettings settings, int index, float blow)
     {
-        if (settings.blowStart <= 0.0f)
+        if (blow <= 0.0f)
         {
             return 0.0f;
         }
 
         float draw = Seed.Hash(index, settings.seed + 7);
-        float due = settings.blowStart + draw * settings.blowSpread;
-        return Mathf.Clamp01((seconds - due) / LeaveSpan);
+        float due = draw * settings.blowSpread;
+        return Mathf.Clamp01((blow * (1.0f + settings.blowSpread) - due) / LeaveSpan);
     }
 
-    public static Flight Follow(DandelionSettings settings, int index, float seconds)
+    public static Flight Follow(DandelionSettings settings, int index, float blow, float seconds)
     {
-        float gone = Leaving(settings, index, seconds);
+        float gone = Leaving(settings, index, blow);
         if (gone <= 0.0f)
         {
             return new Flight { offset = Vector3.zero, heading = Vector3.up, away = 0.0f, isGone = false };
         }
 
-        Vector2 blow = settings.blowHeading.normalized;
-        Vector3 along = new Vector3(blow.x, 0.0f, blow.y);
+        Vector2 course = settings.blowHeading.normalized;
+        Vector3 along = new Vector3(course.x, 0.0f, course.y);
         float reach = gone * gone * settings.blowSpeed;
         float sway = Mathf.Sin((seconds + index * 0.37f) * settings.blowSway) * Drift * gone;
 

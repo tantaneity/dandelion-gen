@@ -9,6 +9,7 @@ public sealed class DandelionPalette
     public Color floretHeart;
     public Color bract;
     public Color bractInner;
+    public Color stalk;
     public Color receptacle;
     public Color ink;
     public Color background;
@@ -22,6 +23,7 @@ public sealed class DandelionPalette
         floretHeart = Hex(0xe59a0c),
         bract = Hex(0x6d8440),
         bractInner = Hex(0x879a4b),
+        stalk = Hex(0x7d9448),
         receptacle = Hex(0x9aa36a),
         ink = Hex(0x2a2722),
         background = Hex(0xf6f3ec)

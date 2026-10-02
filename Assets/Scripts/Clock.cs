@@ -6,11 +6,11 @@ public static class Clock
     private const int DomeSides = 20;
     private const float FullTurn = 360.0f;
 
-    private static void Receptacle(MeshBuffer mesh, DandelionSettings settings, DandelionPalette palette)
+    private static void Receptacle(MeshBuffer mesh, DandelionSettings settings, DandelionPalette palette, Pose pose)
     {
         float radius = settings.receptacleRadius;
         int centre = mesh.VertexCount;
-        mesh.AddVertex(Vector3.up * radius, Vector3.zero, Vector4.zero, palette.receptacle,
+        mesh.AddVertex(pose.Place(Vector3.up * radius), Vector3.zero, Vector4.zero, palette.receptacle,
             StrokeKind.Card, 0.0f, settings.outlineWeight, settings.depthBias, Shading.Surface(Vector3.up));
 
         for (int ring = 1; ring <= DomeRings; ring++)
@@ -23,8 +23,9 @@ public static class Clock
             {
                 float angle = FullTurn * side / DomeSides * Mathf.Deg2Rad;
                 Vector3 place = new Vector3(Mathf.Cos(angle) * girth, height, Mathf.Sin(angle) * girth);
-                mesh.AddVertex(place, Vector3.zero, Vector4.zero, palette.receptacle, StrokeKind.Card,
-                    0.0f, settings.outlineWeight, settings.depthBias, Shading.Surface(place.normalized));
+                mesh.AddVertex(pose.Place(place), Vector3.zero, Vector4.zero, palette.receptacle,
+                    StrokeKind.Card, 0.0f, settings.outlineWeight, settings.depthBias,
+                    Shading.Surface(pose.Aim(place.normalized)));
             }
         }
 
@@ -45,9 +46,9 @@ public static class Clock
         }
     }
 
-    public static void Build(MeshBuffer mesh, DandelionSettings settings, DandelionPalette palette, float seconds)
+    public static void Build(MeshBuffer mesh, DandelionSettings settings, DandelionPalette palette, Pose pose, float seconds)
     {
-        Receptacle(mesh, settings, palette);
+        Receptacle(mesh, settings, palette, pose);
 
         for (int index = 0; index < settings.clockSeeds; index++)
         {
@@ -57,7 +58,7 @@ public static class Clock
                 continue;
             }
 
-            Flight flight = Dispersal.Follow(settings, index, seconds);
+            Flight flight = Dispersal.Follow(settings, index, settings.blow, seconds);
             if (flight.isGone)
             {
                 continue;
@@ -66,11 +67,11 @@ public static class Clock
             float wobble = Seed.Hash(index, settings.seed + 11) - 0.5f;
             Seed.Build(mesh, settings, palette, new SeedPlan
             {
-                root = heading * settings.receptacleRadius + flight.offset,
-                heading = Vector3.Slerp(heading, flight.heading, flight.away).normalized,
-                scale = 1.0f + wobble * settings.seedJitter,
+                root = pose.Place(heading * settings.receptacleRadius) + flight.offset,
+                heading = pose.Aim(Vector3.Slerp(heading, flight.heading, flight.away).normalized),
+                scale = (1.0f + wobble * settings.seedJitter) * Mathf.Lerp(0.42f, 1.0f, settings.open),
                 roll = index * Phyllotaxis.GoldenAngle,
-                open = 1.0f
+                open = settings.open
             });
         }
     }

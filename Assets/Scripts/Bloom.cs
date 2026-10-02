@@ -13,7 +13,7 @@ public static class Bloom
         return new Color(petal.r * lift, petal.g * lift, petal.b * lift, 1.0f);
     }
 
-    public static void Build(MeshBuffer mesh, DandelionSettings settings, DandelionPalette palette, float open)
+    public static void Build(MeshBuffer mesh, DandelionSettings settings, DandelionPalette palette, Pose pose, float open)
     {
         for (int index = 0; index < settings.floretCount; index++)
         {
@@ -35,9 +35,9 @@ public static class Bloom
 
             Floret.Build(mesh, settings, new FloretPlan
             {
-                root = root,
-                heading = heading.normalized,
-                flank = Vector3.Cross(heading, outward).normalized,
+                root = pose.Place(root),
+                heading = pose.Aim(heading.normalized),
+                flank = pose.Aim(Vector3.Cross(heading, outward).normalized),
                 length = settings.floretLength * Mathf.Lerp(1.0f, OuterShare + 0.45f, reach)
                          * (1.0f + (draw - 0.5f) * settings.floretJitter),
                 width = settings.floretWidth,

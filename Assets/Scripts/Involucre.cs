@@ -5,14 +5,15 @@ public static class Involucre
     private const float FullTurn = 360.0f;
     private const float InnerLift = 1.35f;
 
-    public static void Build(MeshBuffer mesh, DandelionSettings settings, DandelionPalette palette, float open)
+    public static void Build(MeshBuffer mesh, DandelionSettings settings, DandelionPalette palette, Pose pose, float open)
     {
         for (int ring = 0; ring < 2; ring++)
         {
             bool isInner = ring == 1;
             int count = isInner ? settings.bractCount : settings.bractCount - 3;
-            float bend = isInner ? settings.bractInnerBend : Mathf.Lerp(settings.bractInnerBend,
-                settings.bractOuterBend, open);
+            float bend = isInner
+                ? Mathf.Lerp(settings.bractClosed, settings.bractInnerBend, open)
+                : Mathf.Lerp(settings.bractClosed, settings.bractOuterBend, open);
             float length = settings.bractLength * (isInner ? InnerLift : 1.0f);
 
             for (int index = 0; index < count; index++)
@@ -24,9 +25,10 @@ public static class Involucre
 
                 Floret.Build(mesh, settings, new FloretPlan
                 {
-                    root = outward * (settings.receptacleRadius * 0.92f) - Vector3.up * settings.bractSeat,
-                    heading = heading.normalized,
-                    flank = Vector3.Cross(heading, outward).normalized,
+                    root = pose.Place(outward * (settings.receptacleRadius * 0.92f)
+                                      - Vector3.up * settings.bractSeat),
+                    heading = pose.Aim(heading.normalized),
+                    flank = pose.Aim(Vector3.Cross(heading, outward).normalized),
                     length = length * (1.0f + (draw - 0.5f) * 0.18f),
                     width = settings.bractWidth,
                     curl = isInner ? 0.0f : settings.bractCurl * open,

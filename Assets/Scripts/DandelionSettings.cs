@@ -29,7 +29,7 @@ public sealed class DandelionSettings
     public float receptacleRadius = 0.021f;
     public float seedJitter = 0.14f;
 
-    public float blowStart = 0.0f;
+    public float blow = 0.0f;
     public float blowSpread = 1.6f;
     public float blowSpeed = 1.4f;
     public float blowRange = 1.3f;
@@ -52,8 +52,24 @@ public sealed class DandelionSettings
     public float bractWidth = 0.0052f;
     public float bractSeat = 0.016f;
     public float bractInnerBend = 33.0f;
+    public float bractClosed = 5.0f;
     public float bractOuterBend = 128.0f;
     public float bractCurl = 26.0f;
+
+    public float stalkHeight = 0.42f;
+    public float stalkRadius = 0.0046f;
+    public int stalkRings = 14;
+    public float stalkArch = 0.22f;
+    public float stalkStiffness = 0.9f;
+    public float stalkDamping = 0.26f;
+
+    public float windStrength = 0.35f;
+    public float gustFrequency = 0.55f;
+    public float gustWavelength = 2.4f;
+    public int gustCount = 3;
+    public float gustSpread = 1.7f;
+    public float gustFalloff = 0.6f;
+    public Vector2 windHeading = new Vector2(1.0f, 0.25f);
 
     public float open = 1.0f;
     public float grey = 0.0f;
