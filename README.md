@@ -50,10 +50,6 @@ And the receptacle pulls the same trick. A pit is drawn exactly where a seed use
 
 Flat fills, one light, a hard shadow band, and ink along the silhouette. The shader is the same one driving the other generators in this family, with stroke width always a fraction of screen height, so a hair stays a hair whether the camera is across the meadow or an inch away.
 
-## Running it
-
-Open `Assets/Scenes/Dandelion.unity` in Unity 6. The builder runs in the editor, so the plant is already there without pressing play. Numbers live in `DandelionSettings.cs`, the stages of the life in `Lifecycle.cs`.
-
 Built with Unity 6000.3.5f2 and URP.
 
 ## Licence
