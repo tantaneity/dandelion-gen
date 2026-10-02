@@ -15,6 +15,8 @@ public static class Bloom
 
     public static void Build(MeshBuffer mesh, DandelionSettings settings, DandelionPalette palette, Pose pose, float open)
     {
+        Receptacle.Build(mesh, settings, palette, pose, settings.bloomDome);
+
         for (int index = 0; index < settings.floretCount; index++)
         {
             Vector2 spot = Phyllotaxis.OnDisc(index, settings.floretCount);

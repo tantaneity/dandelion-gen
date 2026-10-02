@@ -3,7 +3,7 @@ using UnityEngine;
 public static class Involucre
 {
     private const float FullTurn = 360.0f;
-    private const float InnerLift = 1.35f;
+    private const float InnerLift = 0.92f;
 
     public static void Build(MeshBuffer mesh, DandelionSettings settings, DandelionPalette palette, Pose pose, float open)
     {

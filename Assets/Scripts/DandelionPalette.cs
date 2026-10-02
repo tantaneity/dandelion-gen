@@ -24,7 +24,7 @@ public sealed class DandelionPalette
         bract = Hex(0x6d8440),
         bractInner = Hex(0x879a4b),
         stalk = Hex(0x7d9448),
-        receptacle = Hex(0x9aa36a),
+        receptacle = Hex(0x6f8046),
         ink = Hex(0x2a2722),
         background = Hex(0xf6f3ec)
     };
